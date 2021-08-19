@@ -25,12 +25,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author User
  */
 @Entity
-@Table(name = "group_role")
+@Table(name = "category_user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GroupRole.findAll", query = "SELECT g FROM GroupRole g"),
-    @NamedQuery(name = "GroupRole.findById", query = "SELECT g FROM GroupRole g WHERE g.id = :id")})
-public class GroupRole implements Serializable {
+    @NamedQuery(name = "CategoryUser.findAll", query = "SELECT c FROM CategoryUser c"),
+    @NamedQuery(name = "CategoryUser.findById", query = "SELECT c FROM CategoryUser c WHERE c.id = :id")})
+public class CategoryUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,17 +38,17 @@ public class GroupRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Group1 groupId;
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Category categoryId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Role roleId;
+    private User userId;
 
-    public GroupRole() {
+    public CategoryUser() {
     }
 
-    public GroupRole(Integer id) {
+    public CategoryUser(Integer id) {
         this.id = id;
     }
 
@@ -60,20 +60,20 @@ public class GroupRole implements Serializable {
         this.id = id;
     }
 
-    public Group1 getGroupId() {
-        return groupId;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setGroupId(Group1 groupId) {
-        this.groupId = groupId;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Role getRoleId() {
-        return roleId;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -86,10 +86,10 @@ public class GroupRole implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof GroupRole)) {
+        if (!(object instanceof CategoryUser)) {
             return false;
         }
-        GroupRole other = (GroupRole) object;
+        CategoryUser other = (CategoryUser) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +98,9 @@ public class GroupRole implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.entity.GroupRole[ id=" + id + " ]";
+        return "CategoryUser{" +
+                "id=" + id +
+                ", categoryId=" + categoryId +
+                '}';
     }
-    
 }

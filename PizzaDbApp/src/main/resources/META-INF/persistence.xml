@@ -2,16 +2,30 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.company_PizzaDbApp_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.company.entity.Group1</class>
+    <class>com.company.Group1</class>
     <class>com.company.entity.User</class>
     <class>com.company.entity.UserBasket</class>
     <class>com.company.entity.Image</class>
-    <class>com.company.entity.GroupRole</class>
+    <class>com.company.GroupRole</class>
     <class>com.company.entity.Product</class>
     <class>com.company.entity.Role</class>
     <class>com.company.entity.Canceled</class>
-    <class>com.company.entity.GroupUser</class>
+    <class>com.company.GroupUser</class>
+    <class>com.company.Order1</class>
+    <class>com.company.entity.User</class>
+    <class>com.company.entity.Group1</class>
+    <class>com.company.entity.UserBasket</class>
     <class>com.company.entity.Order1</class>
+    <class>com.company.entity.Role</class>
+    <class>com.company.entity.Image</class>
+    <class>com.company.entity.Product</class>
+    <class>com.company.entity.GroupRole</class>
+    <class>com.company.entity.GroupUser</class>
+    <class>com.company.entity.Canceled</class>
+    <class>com.company.CategoryUser</class>
+    <class>com.company.Indent</class>
+    <class>com.company.Category</class>
+    <class>com.company.CategoryRole</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pizza?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

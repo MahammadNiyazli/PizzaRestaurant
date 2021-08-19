@@ -5,6 +5,9 @@
  */
 package com.company.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +27,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,16 +36,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author User
  */
 @Entity
-@Table(name = "order")
+@Table(name = "indent")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o"),
-    @NamedQuery(name = "Order1.findById", query = "SELECT o FROM Order1 o WHERE o.id = :id"),
-    @NamedQuery(name = "Order1.findByPrice", query = "SELECT o FROM Order1 o WHERE o.price = :price"),
-    @NamedQuery(name = "Order1.findByDate", query = "SELECT o FROM Order1 o WHERE o.date = :date"),
-    @NamedQuery(name = "Order1.findByPayment", query = "SELECT o FROM Order1 o WHERE o.payment = :payment"),
-    @NamedQuery(name = "Order1.findByDelivered", query = "SELECT o FROM Order1 o WHERE o.delivered = :delivered")})
-public class Order1 implements Serializable {
+    @NamedQuery(name = "Indent.findAll", query = "SELECT i FROM Indent i"),
+    @NamedQuery(name = "Indent.findById", query = "SELECT i FROM Indent i WHERE i.id = :id"),
+    @NamedQuery(name = "Indent.findByPrice", query = "SELECT i FROM Indent i WHERE i.price = :price"),
+    @NamedQuery(name = "Indent.findByDate", query = "SELECT i FROM Indent i WHERE i.date = :date"),
+    @NamedQuery(name = "Indent.findByPayment", query = "SELECT i FROM Indent i WHERE i.payment = :payment"),
+    @NamedQuery(name = "Indent.findByDelivered", query = "SELECT i FROM Indent i WHERE i.delivered = :delivered")})
+public class Indent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,25 +59,29 @@ public class Order1 implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+    @Size(max = 255)
     @Column(name = "payment")
     private String payment;
+    @Size(max = 255)
     @Column(name = "delivered")
     private String delivered;
-    @OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "indentId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Canceled> canceledList;
-    @OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER)
-    private List<UserBasket> userBasketList;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Product productId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private User userId;
+    @OneToMany(mappedBy = "indentId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserBasket> userBasketList;
 
-    public Order1() {
+    public Indent() {
     }
 
-    public Order1(Integer id) {
+    public Indent(Integer id) {
         this.id = id;
     }
 
@@ -126,15 +134,6 @@ public class Order1 implements Serializable {
         this.canceledList = canceledList;
     }
 
-    @XmlTransient
-    public List<UserBasket> getUserBasketList() {
-        return userBasketList;
-    }
-
-    public void setUserBasketList(List<UserBasket> userBasketList) {
-        this.userBasketList = userBasketList;
-    }
-
     public Product getProductId() {
         return productId;
     }
@@ -151,6 +150,15 @@ public class Order1 implements Serializable {
         this.userId = userId;
     }
 
+    @XmlTransient
+    public List<UserBasket> getUserBasketList() {
+        return userBasketList;
+    }
+
+    public void setUserBasketList(List<UserBasket> userBasketList) {
+        this.userBasketList = userBasketList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -161,10 +169,10 @@ public class Order1 implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order1)) {
+        if (!(object instanceof Indent)) {
             return false;
         }
-        Order1 other = (Order1) object;
+        Indent other = (Indent) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -173,7 +181,7 @@ public class Order1 implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.entity.Order1[ id=" + id + " ]";
+        return "com.company.entity.Indent[ id=" + id + " ]";
     }
     
 }

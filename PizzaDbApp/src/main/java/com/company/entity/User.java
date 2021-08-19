@@ -5,6 +5,9 @@
  */
 package com.company.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -45,24 +49,35 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 255)
     @Column(name = "name")
     private String name;
+    @Size(max = 255)
     @Column(name = "surname")
     private String surname;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 255)
     @Column(name = "email")
     private String email;
+    @Size(max = 255)
     @Column(name = "password")
     private String password;
+    @Size(max = 255)
     @Column(name = "address")
     private String address;
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Size(max = 255)
     @Column(name = "phone")
     private String phone;
     @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
-    private List<GroupUser> groupUserList;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Indent> indentList;
     @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<UserBasket> userBasketList;
     @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
-    private List<Order1> order1List;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<CategoryUser> categoryUserList;
 
     public User() {
     }
@@ -128,12 +143,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public List<GroupUser> getGroupUserList() {
-        return groupUserList;
+    public List<Indent> getIndentList() {
+        return indentList;
     }
 
-    public void setGroupUserList(List<GroupUser> groupUserList) {
-        this.groupUserList = groupUserList;
+    public void setIndentList(List<Indent> indentList) {
+        this.indentList = indentList;
     }
 
     @XmlTransient
@@ -146,12 +161,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
+    public List<CategoryUser> getCategoryUserList() {
+        return categoryUserList;
     }
 
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
+    public void setCategoryUserList(List<CategoryUser> categoryUserList) {
+        this.categoryUserList = categoryUserList;
     }
 
     @Override
@@ -176,7 +191,17 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.entity.User[ id=" + id + " ]";
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", indentList=" + indentList +
+                ", userBasketList=" + userBasketList +
+                ", categoryUserList=" + categoryUserList +
+                '}';
     }
-    
 }

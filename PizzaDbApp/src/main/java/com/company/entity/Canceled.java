@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -43,14 +44,15 @@ public class Canceled implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 255)
     @Column(name = "reason")
     private String reason;
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "indent_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Order1 orderId;
+    private Indent indentId;
 
     public Canceled() {
     }
@@ -83,12 +85,12 @@ public class Canceled implements Serializable {
         this.date = date;
     }
 
-    public Order1 getOrderId() {
-        return orderId;
+    public Indent getIndentId() {
+        return indentId;
     }
 
-    public void setOrderId(Order1 orderId) {
-        this.orderId = orderId;
+    public void setIndentId(Indent indentId) {
+        this.indentId = indentId;
     }
 
     @Override

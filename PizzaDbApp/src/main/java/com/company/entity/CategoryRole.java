@@ -6,7 +6,6 @@
 package com.company.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,25 +13,24 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author User
  */
 @Entity
-@Table(name = "group")
+@Table(name = "category_role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Group1.findAll", query = "SELECT g FROM Group1 g"),
-    @NamedQuery(name = "Group1.findById", query = "SELECT g FROM Group1 g WHERE g.id = :id"),
-    @NamedQuery(name = "Group1.findByName", query = "SELECT g FROM Group1 g WHERE g.name = :name")})
-public class Group1 implements Serializable {
+    @NamedQuery(name = "CategoryRole.findAll", query = "SELECT c FROM CategoryRole c"),
+    @NamedQuery(name = "CategoryRole.findById", query = "SELECT c FROM CategoryRole c WHERE c.id = :id")})
+public class CategoryRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,17 +38,17 @@ public class Group1 implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "name")
-    private String name;
-    @OneToMany(mappedBy = "groupId", fetch = FetchType.EAGER)
-    private List<GroupRole> groupRoleList;
-    @OneToMany(mappedBy = "groupId", fetch = FetchType.EAGER)
-    private List<GroupUser> groupUserList;
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category categoryId;
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Role roleId;
 
-    public Group1() {
+    public CategoryRole() {
     }
 
-    public Group1(Integer id) {
+    public CategoryRole(Integer id) {
         this.id = id;
     }
 
@@ -62,30 +60,20 @@ public class Group1 implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
-    @XmlTransient
-    public List<GroupRole> getGroupRoleList() {
-        return groupRoleList;
+    public Role getRoleId() {
+        return roleId;
     }
 
-    public void setGroupRoleList(List<GroupRole> groupRoleList) {
-        this.groupRoleList = groupRoleList;
-    }
-
-    @XmlTransient
-    public List<GroupUser> getGroupUserList() {
-        return groupUserList;
-    }
-
-    public void setGroupUserList(List<GroupUser> groupUserList) {
-        this.groupUserList = groupUserList;
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     @Override
@@ -98,10 +86,10 @@ public class Group1 implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Group1)) {
+        if (!(object instanceof CategoryRole)) {
             return false;
         }
-        Group1 other = (Group1) object;
+        CategoryRole other = (CategoryRole) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -110,7 +98,7 @@ public class Group1 implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.entity.Group1[ id=" + id + " ]";
+        return "com.company.entity.CategoryRole[ id=" + id + " ]";
     }
     
 }

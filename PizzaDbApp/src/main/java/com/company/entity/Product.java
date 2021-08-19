@@ -5,6 +5,9 @@
  */
 package com.company.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,6 +24,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,11 +52,16 @@ public class Product implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "kind")
     private String kind;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    @Size(max = 255)
     @Column(name = "description")
     private String description;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -61,9 +71,11 @@ public class Product implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Image imageId;
     @OneToMany(mappedBy = "productId", fetch = FetchType.EAGER)
-    private List<UserBasket> userBasketList;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Indent> indentList;
     @OneToMany(mappedBy = "productId", fetch = FetchType.EAGER)
-    private List<Order1> order1List;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserBasket> userBasketList;
 
     public Product() {
     }
@@ -127,21 +139,21 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
+    public List<Indent> getIndentList() {
+        return indentList;
+    }
+
+    public void setIndentList(List<Indent> indentList) {
+        this.indentList = indentList;
+    }
+
+    @XmlTransient
     public List<UserBasket> getUserBasketList() {
         return userBasketList;
     }
 
     public void setUserBasketList(List<UserBasket> userBasketList) {
         this.userBasketList = userBasketList;
-    }
-
-    @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
-    }
-
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
     }
 
     @Override

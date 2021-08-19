@@ -5,6 +5,9 @@
  */
 package com.company.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -40,10 +44,12 @@ public class Role implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 255)
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "roleId", fetch = FetchType.EAGER)
-    private List<GroupRole> groupRoleList;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<CategoryRole> categoryRoleList;
 
     public Role() {
     }
@@ -69,12 +75,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public List<GroupRole> getGroupRoleList() {
-        return groupRoleList;
+    public List<CategoryRole> getCategoryRoleList() {
+        return categoryRoleList;
     }
 
-    public void setGroupRoleList(List<GroupRole> groupRoleList) {
-        this.groupRoleList = groupRoleList;
+    public void setCategoryRoleList(List<CategoryRole> categoryRoleList) {
+        this.categoryRoleList = categoryRoleList;
     }
 
     @Override

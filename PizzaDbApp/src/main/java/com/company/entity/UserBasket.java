@@ -38,9 +38,9 @@ public class UserBasket implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "indent_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Order1 orderId;
+    private Indent indentId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Product productId;
@@ -63,12 +63,12 @@ public class UserBasket implements Serializable {
         this.id = id;
     }
 
-    public Order1 getOrderId() {
-        return orderId;
+    public Indent getIndentId() {
+        return indentId;
     }
 
-    public void setOrderId(Order1 orderId) {
-        this.orderId = orderId;
+    public void setIndentId(Indent indentId) {
+        this.indentId = indentId;
     }
 
     public Product getProductId() {
