@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.company</groupId>
 	<artifactId>PizzaDbApp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>PizzaDbApp</name>
 	<description>Database Application for Pizza Restaurant</description>
 	<properties>
@@ -64,6 +64,26 @@
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>1.0.2.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.lbovolini</groupId>
+			<artifactId>ObjectMapper</artifactId>
+			<version>0.2.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.konghq</groupId>
+			<artifactId>unirest-objectmapper-jackson</artifactId>
+			<version>3.13.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper-module-jsr310</artifactId>
+			<version>1.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

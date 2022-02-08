@@ -30,7 +30,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pizza?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="0503771480m"/>
+      <property name="javax.persistence.jdbc.password" value="0503771480mN"/>
     </properties>
   </persistence-unit>
 </persistence>

@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.entity.User;
 import com.company.respository.UserRepository;
+import com.company.service.UserServiceInter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,9 @@ public class PizzaDbAppApplication {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	UserServiceInter userServiceInter;
+
 	public static void main(String[] args) {
 		SpringApplication.run(PizzaDbAppApplication.class, args);
 	}
@@ -25,8 +29,10 @@ public class PizzaDbAppApplication {
 		CommandLineRunner runner = new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
-				List<User> u = userRepository.findAll();
-				System.out.println(u);
+				User user = new User();
+				user.setId(1);
+				user.setSurname("Niyazli");
+				userServiceInter.updateUser(user);
 			}
 		};
 		return runner;
