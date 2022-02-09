@@ -3,12 +3,11 @@ package com.company.controller;
 import com.company.dto.ResponseDto;
 import com.company.dto.UserDto;
 import com.company.entity.User;
-import com.company.respository.UserRepository;
+import com.company.exceptionHandling.StaticExceptions;
+import com.company.exceptionHandling.InvalidArgException;
 import com.company.service.UserServiceInter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,21 +25,21 @@ public class UserWebServices {
     }
 
     @GetMapping("/userList")
-    public ResponseEntity<ResponseDto> getAllusers(){
+    public ResponseEntity<ResponseDto> getAllusers() {
         List<User> users = userService.findAll();
         List<UserDto> userDtoList = users.stream().map(UserDto::new).collect(Collectors.toList());
         return ResponseEntity.ok(ResponseDto.of(userDtoList));
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<ResponseDto> findUserById(@PathVariable("id") int id){
+    public ResponseEntity<ResponseDto> findUserById(@PathVariable("id") int id) {
         User user = userService.findById(id);
-        UserDto userDto = user == null ? new UserDto():new UserDto(user) ;
+        UserDto userDto = user == null ? new UserDto() : new UserDto(user);
         return ResponseEntity.ok(ResponseDto.of(userDto));
     }
 
     @PostMapping("/updateUser")
-    public ResponseEntity<ResponseDto> updateUser(@RequestBody UserDto userDto){
+    public ResponseEntity<ResponseDto> updateUser(@RequestBody UserDto userDto) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         User user = mapper.convertValue(userDto, User.class);
@@ -50,7 +49,7 @@ public class UserWebServices {
 
 
     @PostMapping("/addUser")
-    public ResponseEntity<ResponseDto> addUser(@RequestBody UserDto userDto){
+    public ResponseEntity<ResponseDto> addUser(@RequestBody UserDto userDto) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         User user = mapper.convertValue(userDto, User.class);
@@ -61,11 +60,11 @@ public class UserWebServices {
 
 
     @PostMapping("/removeUser")
-    public ResponseEntity<ResponseDto> removeUser(@RequestBody UserDto userDto){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        User user = mapper.convertValue(userDto, User.class);
-        userService.removeUser(user.getId());
+    public ResponseEntity<ResponseDto> removeUser(@RequestBody UserDto userDto) {
+        User user = userService
+                .findById(userDto.getId())
+                .orElseThrow(() -> new InvalidArgException("User Not Found", StaticExceptions.USER_NOT_FOUND.getValue()));
+        userService.removeUser(userDto.getId());
         return ResponseEntity.ok(ResponseDto.of(new UserDto(user)));
     }
 }
