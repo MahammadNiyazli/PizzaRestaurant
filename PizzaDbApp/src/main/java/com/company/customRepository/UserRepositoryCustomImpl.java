@@ -2,22 +2,12 @@ package com.company.customRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.company.entity.User;
-import com.fasterxml.jackson.core.JsonParser;
-import com.sun.istack.internal.logging.Logger;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.DataInput;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Repository

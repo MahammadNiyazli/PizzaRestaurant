@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserServiceInter {
 
@@ -17,4 +18,6 @@ public interface UserServiceInter {
     public User findById(int id);
 
     public List<User> findAll();
+
+    public Optional<User> findById(Integer id);
 }

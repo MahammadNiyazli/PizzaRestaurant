@@ -14,29 +14,29 @@ import java.util.List;
 @SpringBootApplication
 public class PizzaDbAppApplication {
 
-	@Autowired
-	UserRepository userRepository;
-
-	@Autowired
-	UserServiceInter userServiceInter;
+//	@Autowired
+//	UserRepository userRepository;
+//
+//	@Autowired
+//	UserServiceInter userServiceInter;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PizzaDbAppApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner setRunner(){
-		CommandLineRunner runner = new CommandLineRunner() {
-			@Override
-			public void run(String... args) throws Exception {
-				User user = new User();
-				user.setId(1);
-				user.setSurname("Niyazli");
-				userServiceInter.updateUser(user);
-			}
-		};
-		return runner;
-	}
+//	@Bean
+//	public CommandLineRunner setRunner(){
+//		CommandLineRunner runner = new CommandLineRunner() {
+//			@Override
+//			public void run(String... args) throws Exception {
+//				User user = new User();
+//				user.setId(1);
+//				user.setSurname("Niyazov");
+//				userServiceInter.updateUser(user);
+//			}
+//		};
+//		return runner;
+//	}
 
 
 }
