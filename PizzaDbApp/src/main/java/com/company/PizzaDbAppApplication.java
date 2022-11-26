@@ -8,11 +8,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
-public class PizzaDbAppApplication {
+public class PizzaDbAppApplication{
 
 //	@Autowired
 //	UserRepository userRepository;
@@ -24,19 +27,16 @@ public class PizzaDbAppApplication {
 		SpringApplication.run(PizzaDbAppApplication.class, args);
 	}
 
-//	@Bean
-//	public CommandLineRunner setRunner(){
-//		CommandLineRunner runner = new CommandLineRunner() {
-//			@Override
-//			public void run(String... args) throws Exception {
-//				User user = new User();
-//				user.setId(1);
-//				user.setSurname("Niyazov");
-//				userServiceInter.updateUser(user);
-//			}
-//		};
-//		return runner;
+
+//	@Override
+//	public void run(String... args) throws Exception {
+//		System.err.println("bashladi");
+//
+//		Page<User> usersPage = userServiceInter.findByFilters("mahammad",null, "baku",1L);
+//		System.err.println("pages = "+usersPage.getTotalPages());
+//		System.err.println("UserCount = "+usersPage.getTotalElements());
+//		System.err.println("users = "+usersPage.get().collect(Collectors.toList()));
+//
+//		System.err.println("bitdi");
 //	}
-
-
 }
